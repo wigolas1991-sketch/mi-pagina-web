@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarea IA - Glosario Inteligente & Agente de Refactorización</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome para Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Estilos personalizados para barra de scroll y efectos de glassmorphism */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: #1e1b4b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #4f46e5;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .dark .glass {
+            background: rgba(15, 23, 42, 0.85);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen font-sans transition-colors duration-300">
+
+    <!-- TOP NAVBAR -->
+    <nav class="sticky top-0 z-40 w-full border-b border-slate-200 dark:border-slate-800 glass transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div class="bg-gradient-to-tr from-brand-600 to-indigo-400 p-2.5 rounded-xl shadow-lg shadow-brand-500/20 text-white flex items-center justify-center">
+                        <i class="fa-solid fa-brain text-xl animate-pulse"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-brand-600 to-indigo-400 bg-clip-text text-transparent">Tarea IA</span>
+                        <span class="text-xs block text-slate-500 dark:text-slate-400 font-medium">Glosario Avanzado & Agente</span>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-4">
+                    <!-- Botón Modo Oscuro -->
+                    <button id="theme-toggle" class="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-all duration-200" title="Alternar tema">
+                        <i id="theme-toggle-icon" class="fa-solid fa-moon text-lg"></i>
+                    </button>
+                    <!-- Link LinkedIn Directo -->
+                    <a href="https://www.linkedin.com/in/nicolastellez" target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-xl text-sm font-semibold shadow-md shadow-brand-500/10 transition-all duration-200 transform hover:-translate-y-0.5">
+                        <i class="fa-brands fa-linkedin-in text-base"></i>
+                        <span>LinkedIn</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- SECCIÓN DE BIENVENIDA Y DATOS PERSONALES -->
+        <header class="mb-10 bg-gradient-to-br from-white to-slate-50 dark:from-slate-900 dark:to-slate-950 p-6 sm:p-8 rounded-3xl border border-slate-200/80 dark:border-slate-800/80 shadow-xl relative overflow-hidden transition-all duration-300">
+            <!-- Círculos decorativos de fondo -->
+            <div class="absolute -right-16 -top-16 w-64 h-64 bg-brand-500/5 dark:bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -left-16 -bottom-16 w-64 h-64 bg-indigo-500/5 dark:bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
+                <div class="space-y-3">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300 border border-brand-200 dark:border-brand-800">
+                        <span class="w-1.5 h-1.5 bg-brand-500 rounded-full animate-ping"></span>
+                        Entregable Académico
+                    </span>
+                    <h1 class="text-3xl sm:text-4xl font-black tracking-tight text-slate-900 dark:text-white">
+                        Glosario de Inteligencia Artificial
+                    </h1>
+                    <p class="text-slate-600 dark:text-slate-300 max-w-2xl text-sm sm:text-base leading-relaxed">
+                        Explora definiciones técnicas estructuradas desde la <span class="font-bold">Columna A hasta la O</span>. Interactúa con nuestro agente artificial capaz de refactorizar conceptos, generar ejemplos prácticos y optimizar tu comprensión.
+                    </p>
+                </div>
+
+                <!-- Tarjeta del Estudiante / Autor -->
+                <div class="w-full md:w-auto bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 p-5 rounded-2xl shadow-lg flex items-center gap-4 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-full bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-brand-600 dark:text-brand-400">
+                        <i class="fa-solid fa-user-tie text-2xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 dark:text-white">Nicolás Téllez</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Desarrollador & Investigador IA</p>
+                        <div class="flex gap-3 mt-1.5">
+                            <a href="https://www.linkedin.com/in/nicolastellez" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 text-sm transition-colors" title="Ver LinkedIn">
+                                <i class="fa-brands fa-linkedin"></i>
+                            </a>
+                            <a href="mailto:nicolastellez@ejemplo.com" class="text-slate-400 hover:text-red-500 text-sm transition-colors" title="Enviar Correo">
+                                <i class="fa-solid fa-envelope"></i>
+                            </a>
+                            <a href="#deploy-guide" class="text-slate-400 hover:text-green-500 text-sm transition-colors" title="Guía para subir HTML">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- SECCIÓN DE CONTENIDO PRINCIPAL: GLOSARIO + AGENTE -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-10">
+            
+            <!-- CONTENEDOR GLOSARIO (8 columnas en desktop) -->
+            <section class="lg:col-span-8 flex flex-col gap-6">
+                <!-- PANEL DE FILTROS Y CONTROLES -->
+                <div class="bg-white dark:bg-slate-900 p-5 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-md space-y-4">
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+                        <!-- Barra de Búsqueda -->
+                        <div class="relative flex-1">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500"></i>
+                            <input type="text" id="search-input" placeholder="Buscar concepto, definición, categoría..." class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 dark:focus:ring-brand-600 transition-all">
+                        </div>
+                        
+                        <!-- Controles de Filtros -->
+                        <div class="flex gap-2">
+                            <select id="category-filter" class="px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 dark:focus:ring-brand-600 transition-all cursor-pointer">
+                                <option value="all">Todas las Categorías</option>
+                            </select>
+                            <select id="difficulty-filter" class="px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 dark:focus:ring-brand-600 transition-all cursor-pointer">
+                                <option value="all">Cualquier Dificultad</option>
+                                <option value="Básico">Básico</option>
+                                <option value="Intermedio">Intermedio</option>
+                                <option value="Avanzado">Avanzado</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Toggle de Columnas y Modo de Vista -->
+                    <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100 dark:border-slate-800">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Columnas Visibles:</span>
+                            <button id="toggle-cols-btn" class="px-3 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950/40 text-brand-600 dark:text-brand-400 text-xs font-semibold border border-indigo-100 dark:border-indigo-900 hover:bg-indigo-100 transition-colors">
+                                <i class="fa-solid fa-eye-slash mr-1"></i> Alternar Columnas A-O
+                            </button>
+                        </div>
+                        <div class="flex items-center bg-slate-100 dark:bg-slate-950 p-1 rounded-xl">
+                            <button id="view-table-btn" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-white dark:bg-slate-900 text-brand-600 dark:text-brand-400 shadow-sm" title="Vista Tabla">
+                                <i class="fa-solid fa-table mr-1"></i> Tabla
+                            </button>
+                            <button id="view-cards-btn" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200" title="Vista Tarjetas">
+                                <i class="fa-solid fa-grip mr-1"></i> Tarjetas
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTENEDOR PRINCIPAL DEL GLOSARIO (TABLA O TARJETAS) -->
+                <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-md overflow-hidden relative min-h-[400px]">
+                    
+                    <!-- VISTA TABLA (Scroll Horizontal) -->
+                    <div id="table-view" class="overflow-x-auto w-full">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-50 dark:bg-slate-950/50 border-b border-slate-100 dark:border-slate-800 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                                    <th class="py-4 px-4 whitespace-nowrap">A. ID</th>
+                                    <th class="py-4 px-4 whitespace-nowrap">B. Concepto</th>
+                                    <th class="py-4 px-4 whitespace-nowrap">C. Categoría</th>
+                                    <th class="py-4 px-4 whitespace-nowrap">D. Definición</th>
+                                    <th class="py-4 px-4 whitespace-nowrap col-extra">E. Caso de Uso</th>
+                                    <th class="py-4 px-4 whitespace-nowrap col-extra">F. Dificultad</th>
+                                    <th class="py-4 px-4 whitespace-nowrap col-extra">G. Algoritmo</th>
+                                    <th class="py-4 px-4 whitespace-nowrap col-extra">H. Lanzamiento</th>
+                                    <th class="py-4 px-4 whitespace-nowrap col-extra">I. Autor</th>
+                                    <th class="py-4 px-4 whitespace-nowrap col-extra">J. Estado</th>
+                                    <th class="py-4 px-4 whitespace-nowrap col-extra">K. Referencia</th>
+                                    <th class="py-4 px-4 whitespace-nowrap col-extra">L. Tags</th>
+                                    <th class="py-4 px-4 whitespace-nowrap col-extra">M. Complejidad</th>
+                                    <th class="py-4 px-4 whitespace-nowrap col-extra">N. Impacto</th>
+                                    <th class="py-4 px-4 whitespace-nowrap col-extra">O. Refactorización</th>
+                                    <th class="py-4 px-4 text-center">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="glossary-tbody" class="divide-y divide-slate-100 dark:divide-slate-800/60 text-sm">
+                                <!-- Filas dinámicas por Javascript -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- VISTA TARJETAS (Grid alternativo) -->
+                    <div id="cards-view" class="hidden p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Tarjetas dinámicas por Javascript -->
+                    </div>
+
+                    <!-- ESTADO VACÍO -->
+                    <div id="empty-state" class="hidden flex-col items-center justify-center p-12 text-center">
+                        <div class="bg-slate-100 dark:bg-slate-850 p-4 rounded-full text-slate-400 dark:text-slate-600 mb-4">
+                            <i class="fa-solid fa-folder-open text-4xl"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-700 dark:text-slate-300">No se encontraron términos</h4>
+                        <p class="text-xs text-slate-500 mt-1">Prueba a limpiar tu búsqueda o a cambiar los filtros.</p>
+                    </div>
+
+                    <!-- BOTÓN AGREGAR CONCEPTO -->
+                    <div class="p-4 bg-slate-50 dark:bg-slate-950/30 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                        <span class="text-xs text-slate-500 dark:text-slate-400" id="results-counter">Cargando glosario...</span>
+                        <button onclick="openAddModal()" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 dark:bg-indigo-600 dark:hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all">
+                            <i class="fa-solid fa-plus"></i> Añadir Concepto (A-O)
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AGENTE DE REFACTORIZACIÓN FAKE (4 columnas en desktop) -->
+            <section class="lg:col-span-4 flex flex-col h-full min-h-[500px]">
+                <div class="bg-slate-900 dark:bg-slate-900 text-white rounded-3xl border border-slate-800 shadow-xl overflow-hidden flex flex-col h-full">
+                    <!-- Cabecera del Agente -->
+                    <div class="p-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-500 to-cyan-400 flex items-center justify-center text-white relative">
+                                <i class="fa-solid fa-robot text-lg"></i>
+                                <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-slate-950 rounded-full"></span>
+                            </div>
+                            <div>
+                                <h3 class="font-extrabold text-sm tracking-tight text-white flex items-center gap-1">
+                                    Socrates Agent <span class="text-[10px] text-green-400 bg-green-500/10 px-1.5 py-0.5 rounded border border-green-500/20 font-normal">Online</span>
+                                </h3>
+                                <p class="text-[10px] text-slate-400">Refactorizador de Código y Conceptos IA</p>
+                            </div>
+                        </div>
+                        <button onclick="clearChat()" class="text-slate-400 hover:text-white transition-colors" title="Limpiar Chat">
+                            <i class="fa-solid fa-trash-can text-sm"></i>
+                        </button>
+                    </div>
+
+                    <!-- Panel de Configuración Rápida / Acciones -->
+                    <div class="bg-slate-950/60 p-3 border-b border-slate-800 text-xs flex flex-wrap gap-2 items-center justify-between">
+                        <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Modo del Agente:</span>
+                        <div class="flex gap-1.5">
+                            <button id="agent-mode-explain" onclick="changeAgentMode('explain')" class="px-2 py-1 rounded bg-brand-600 text-white text-[10px] font-semibold">Explicar</button>
+                            <button id="agent-mode-code" onclick="changeAgentMode('code')" class="px-2 py-1 rounded bg-slate-800 text-slate-300 text-[10px] font-semibold hover:bg-slate-700">Código</button>
+                            <button id="agent-mode-simplify" onclick="changeAgentMode('simplify')" class="px-2 py-1 rounded bg-slate-800 text-slate-300 text-[10px] font-semibold hover:bg-slate-700">Simplificar</button>
+                        </div>
+                    </div>
+
+                    <!-- Historial del Chat -->
+                    <div id="agent-messages" class="flex-1 p-4 overflow-y-auto space-y-4 max-h-[350px] min-h-[250px] bg-slate-900/40 text-xs">
+                        <!-- Mensaje de bienvenida inicial -->
+                        <div class="flex gap-2.5 items-start">
+                            <div class="w-7 h-7 rounded-lg bg-brand-600 flex items-center justify-center text-white shrink-0 text-xs">
+                                <i class="fa-solid fa-robot"></i>
+                            </div>
+                            <div class="bg-slate-850 p-3 rounded-2xl rounded-tl-none border border-slate-800/80 max-w-[85%] text-slate-200">
+                                <p class="font-semibold text-[11px] mb-1 text-brand-400">Socrates AI:</p>
+                                ¡Hola! Soy tu **Asistente de Refactorización**. 
+                                Selecciona cualquier concepto de la tabla o escribe un término de IA para que lo analice, lo simplifique o te genere un código funcional en Python. ¿Cómo te puedo ayudar hoy?
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Indicador de escritura dinámico -->
+                    <div id="typing-indicator" class="hidden px-4 py-2 bg-slate-900/60 text-[10px] text-slate-400 flex items-center gap-2">
+                        <i class="fa-solid fa-spinner animate-spin"></i> Socrates está procesando tu consulta...
+                    </div>
+
+                    <!-- Input del Chat -->
+                    <form id="agent-form" class="p-3 bg-slate-950 border-t border-slate-800 flex gap-2">
+                        <input type="text" id="agent-input" placeholder="Pregunta algo sobre IA o pide refactorizar..." class="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-brand-500 placeholder-slate-500 transition-all">
+                        <button type="submit" class="bg-brand-600 hover:bg-brand-700 text-white w-9 h-9 rounded-xl flex items-center justify-center transition-all shadow-md shadow-brand-500/20 hover:scale-105 active:scale-95">
+                            <i class="fa-solid fa-paper-plane text-xs"></i>
+                        </button>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+        <!-- SECCIÓN GUÍA DE DESPLIEGUE PASO A PASO -->
+        <section id="deploy-guide" class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-md p-6 sm:p-8 mb-10 transition-colors">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-100 dark:border-emerald-900 p-2.5 rounded-xl text-emerald-600 dark:text-emerald-400">
+                    <i class="fa-solid fa-cloud-arrow-up text-xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-extrabold text-slate-950 dark:text-white">Paso a Paso: Despliegue Online del Glosario</h2>
+                    <p class="text-xs text-slate-500">¿Cómo subir este archivo HTML y conseguir un enlace público para compartir?</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Tarjeta de Paso 1 -->
+                <div class="p-5 rounded-2xl border border-slate-100 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-950/40 relative">
+                    <span class="absolute right-4 top-4 text-3xl font-black text-slate-200 dark:text-slate-800/60">01</span>
+                    <h4 class="font-extrabold text-slate-900 dark:text-white text-sm mb-2">Preparar tu Archivo</h4>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Copia todo el código que te he provisto en este asistente y guárdalo en tu computadora con el nombre exacto de <strong class="text-brand-600 dark:text-brand-400">index.html</strong>.
+                    </p>
+                </div>
+
+                <!-- Tarjeta de Paso 2 -->
+                <div class="p-5 rounded-2xl border border-slate-100 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-950/40 relative">
+                    <span class="absolute right-4 top-4 text-3xl font-black text-slate-200 dark:text-slate-800/60">02</span>
+                    <h4 class="font-extrabold text-slate-900 dark:text-white text-sm mb-2">Elegir una Plataforma Gratis</h4>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-2">
+                        Puedes usar servicios excelentes e instantáneos de "Drag and Drop":
+                    </p>
+                    <ul class="text-xs text-slate-500 dark:text-slate-400 space-y-1">
+                        <li><i class="fa-solid fa-caret-right text-brand-500"></i> <strong>Netlify Drop</strong> (Pega tu archivo instantáneamente)</li>
+                        <li><i class="fa-solid fa-caret-right text-brand-500"></i> <strong>GitHub Pages</strong> (Excelente opción académica)</li>
+                        <li><i class="fa-solid fa-caret-right text-brand-500"></i> <strong>Vercel</strong> / <strong>Tiny.host</strong></li>
+                    </ul>
+                </div>
+
+                <!-- Tarjeta de Paso 3 -->
+                <div class="p-5 rounded-2xl border border-slate-100 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-950/40 relative">
+                    <span class="absolute right-4 top-4 text-3xl font-black text-slate-200 dark:text-slate-800/60">03</span>
+                    <h4 class="font-extrabold text-slate-900 dark:text-white text-sm mb-2">Desplegar en Netlify Drop (La más rápida)</h4>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Entra a <a href="https://app.netlify.com/drop" target="_blank" class="text-brand-600 hover:underline dark:text-brand-400 font-bold">Netlify Drop</a>. Arrastra tu archivo <strong>index.html</strong> a la caja web. El sistema se procesará y te dará un link público <code class="bg-slate-200 dark:bg-slate-800 px-1 py-0.5 rounded">https://tu-nombre.netlify.app</code> al instante.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER DE PÁGINA -->
+    <footer class="border-t border-slate-200 dark:border-slate-900 bg-white dark:bg-slate-950 py-8 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-500 dark:text-slate-400">
+            <div>
+                <p class="font-bold text-slate-800 dark:text-slate-200">Tarea IA - Entregable de Glosario</p>
+                <p class="mt-1">Glosario Interactivo con Agente Integrado.</p>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="https://www.linkedin.com/in/nicolastellez" target="_blank" rel="noopener noreferrer" class="hover:text-brand-600 transition-colors">
+                    <i class="fa-brands fa-linkedin-in mr-1"></i> LinkedIn
+                </a>
+                <span>•</span>
+                <span>Estudiante: Nicolás Téllez</span>
+                <span>•</span>
+                <span class="font-bold">2026</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL DETALLES DEL CONCEPTO -->
+    <div id="details-modal" class="fixed inset-0 z-50 bg-slate-950/80 hidden items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white dark:bg-slate-900 w-full max-w-2xl rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-2xl transform scale-95 transition-all duration-300 max-h-[90vh] flex flex-col">
+            <!-- Header Modal -->
+            <div class="p-5 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <span class="px-2.5 py-0.5 text-xs font-semibold bg-brand-100 text-brand-800 dark:bg-brand-900/50 dark:text-brand-400 rounded-md" id="modal-category">Categoría</span>
+                    <span class="px-2.5 py-0.5 text-xs font-semibold bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-300 rounded-md" id="modal-difficulty">Dificultad</span>
+                </div>
+                <button onclick="closeDetailsModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Contenido Modal -->
+            <div class="p-6 overflow-y-auto space-y-4 text-xs sm:text-sm flex-1">
+                <div>
+                    <span class="text-[10px] text-slate-400 dark:text-slate-500 uppercase font-black" id="modal-col-a">Columna A: ID</span>
+                    <h2 class="text-2xl font-black text-slate-900 dark:text-white mt-1" id="modal-title">Título del Concepto</h2>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                    <div class="bg-slate-50 dark:bg-slate-950/40 p-3 rounded-xl border border-slate-100 dark:border-slate-800/80">
+                        <strong class="block text-slate-400 text-[10px] uppercase">D. Definición Completa</strong>
+                        <p class="text-slate-700 dark:text-slate-300 mt-1 text-xs" id="modal-definition"></p>
+                    </div>
+                    <div class="bg-slate-50 dark:bg-slate-950/40 p-3 rounded-xl border border-slate-100 dark:border-slate-800/80">
+                        <strong class="block text-slate-400 text-[10px] uppercase">E. Caso de Uso Práctico</strong>
+                        <p class="text-slate-700 dark:text-slate-300 mt-1 text-xs" id="modal-usecase"></p>
+                    </div>
+                </div>
+
+                <!-- Detalle de todas las 15 Columnas (A-O) -->
+                <div class="border-t border-slate-150 dark:border-slate-800 pt-4">
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-2 text-xs uppercase tracking-wide">Desglose de Columnas Planilla (A - O)</h4>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-[11px]">
+                        <div class="p-2 border border-slate-100 dark:border-slate-800/50 rounded-lg">
+                            <span class="text-slate-400 block font-semibold">G. Algoritmo</span>
+                            <span class="text-slate-800 dark:text-slate-200" id="modal-algo">---</span>
+                        </div>
+                        <div class="p-2 border border-slate-100 dark:border-slate-800/50 rounded-lg">
+                            <span class="text-slate-400 block font-semibold">H. Lanzamiento</span>
+                            <span class="text-slate-800 dark:text-slate-200" id="modal-launch">---</span>
+                        </div>
+                        <div class="p-2 border border-slate-100 dark:border-slate-800/50 rounded-lg">
+                            <span class="text-slate-400 block font-semibold">I. Autor</span>
+                            <span class="text-slate-800 dark:text-slate-200" id="modal-author">---</span>
+                        </div>
+                        <div class="p-2 border border-slate-100 dark:border-slate-800/50 rounded-lg">
+                            <span class="text-slate-400 block font-semibold">J. Estado de Revisión</span>
+                            <span class="text-slate-800 dark:text-slate-200" id="modal-status">---</span>
+                        </div>
+                        <div class="p-2 border border-slate-100 dark:border-slate-800/50 rounded-lg flex flex-col justify-between">
+                            <span class="text-slate-400 block font-semibold">K. Referencia Link</span>
+                            <a href="#" id="modal-ref" target="_blank" class="text-brand-600 dark:text-brand-400 hover:underline break-all">Ver Referencia</a>
+                        </div>
+                        <div class="p-2 border border-slate-100 dark:border-slate-800/50 rounded-lg">
+                            <span class="text-slate-400 block font-semibold">L. Etiquetas (Tags)</span>
+                            <span class="text-slate-800 dark:text-slate-200" id="modal-tags">---</span>
+                        </div>
+                        <div class="p-2 border border-slate-100 dark:border-slate-800/50 rounded-lg">
+                            <span class="text-slate-400 block font-semibold">M. Complejidad Temporal</span>
+                            <span class="text-slate-800 dark:text-slate-200" id="modal-complexity">---</span>
+                        </div>
+                        <div class="p-2 border border-slate-100 dark:border-slate-800/50 rounded-lg">
+                            <span class="text-slate-400 block font-semibold">N. Impacto Social</span>
+                            <span class="text-slate-800 dark:text-slate-200" id="modal-impact">---</span>
+                        </div>
+                        <div class="p-2 border border-slate-100 dark:border-slate-800/50 rounded-lg">
+                            <span class="text-slate-400 block font-semibold">O. Notas de Refactor</span>
+                            <span class="text-slate-800 dark:text-slate-200" id="modal-notes">---</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Modal -->
+            <div class="p-4 border-t border-slate-100 dark:border-slate-800/80 bg-slate-50 dark:bg-slate-950/40 flex justify-end gap-2">
+                <button onclick="askAgentToRefactorCurrent()" class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all">
+                    <i class="fa-solid fa-robot"></i> Mandar al Agente
+                </button>
+                <button onclick="closeDetailsModal()" class="px-4 py-2 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 rounded-xl text-xs font-semibold transition-all">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL AGREGAR NUEVO CONCEPTO (FORMULARIO A-O COMPLETO) -->
+    <div id="add-modal" class="fixed inset-0 z-50 bg-slate-950/80 hidden items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white dark:bg-slate-900 w-full max-w-3xl rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-2xl transform scale-95 transition-all duration-300 max-h-[90vh] flex flex-col">
+            <!-- Header Modal -->
+            <div class="p-5 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50 flex justify-between items-center">
+                <h3 class="font-bold text-slate-900 dark:text-white text-base">Añadir Nuevo Concepto (Llenar Columnas A hasta O)</h3>
+                <button onclick="closeAddModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Formulario Principal -->
+            <form id="add-concept-form" class="p-6 overflow-y-auto space-y-4 text-xs sm:text-sm flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-slate-500 font-bold mb-1">A. ID Único</label>
+                    <input type="text" id="add-id" placeholder="Ej: TERM016" class="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500" required>
+                </div>
+                <div>
+                    <label class="block text-slate-500 font-bold mb-1">B. Concepto / Término</label>
+                    <input type="text" id="add-term" placeholder="Ej: Redes Bayesianas" class="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500" required>
+                </div>
+                <div>
+                    <label class="block text-slate-500 font-bold mb-1">C. Categoría</label>
+                    <input type="text" id="add-category" placeholder="Ej: Machine Learning" class="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500" required>
+                </div>
+                <div>
+                    <label class="block text-slate-500 font-bold mb-1">F. Dificultad</label>
+                    <select id="add-difficulty" class="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                        <option value="Básico">Básico</option>
+                        <option value="Intermedio">Intermedio</option>
+                        <option value="Avanzado">Avanzado</option>
+                    </select>
+                </div>
+                <div class="sm:col-span-2">
+                    <label class="block text-slate-500 font-bold mb-1">D. Definición Conceptual</label>
+                    <textarea id="add-definition" rows="2" placeholder="Describe el concepto de manera clara..." class="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500" required></textarea>
+                </div>
+                <div class="sm:col-span-2">
+                    <label class="block text-slate-500 font-bold mb-1">E. Caso de Uso Práctico</label>
+                    <textarea id="add-usecase" rows="2" placeholder="¿En qué se aplica este concepto en la vida real?..." class="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500" required></textarea>
+                </div>
+                <div>
+                    <label class="block text-slate-500 font-bold mb-1">G. Algoritmo Relacionado</label>
+                    <input type="text" id="add-algo" placeholder="Ej: Naive Bayes" class="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                </div>
+                <div>
+                    <label class="block text-slate-500 font-bold mb-1">H. Año de Lanzamiento</label>
+                    <input type="text" id="add-launch" placeholder="Ej: 2017" class="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                </div>
+                <div>
+                    <label class="block text-slate-500 font-bold mb-1">I. Autor o Creador</label>
+                    <input type="text" id="add-author" placeholder="Ej: Geoffrey Hinton" class="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                </div>
+                <div>
+                    <label class="block text-slate-500 font-bold mb-1">J. Estado de Revisión</label>
+                    <input type="text" id="add-status" placeholder="Ej: Aprobado" class="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                </div>
+                <div>
+                    <label class="block text-slate-500 font-bold mb-1">K. Link Referencia (URL)</label>
+                    <input type="url" id="add-ref" placeholder="Ej: https://wikipedia.org" class="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                </div>
+                <div>
+                    <label class="block text-slate-500 font-bold mb-1">L. Etiquetas (separadas por comas)</label>
+                    <input type="text" id="add-tags" placeholder="Ej: Bayes, Redes, Probabilidad" class="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                </div>
+                <div>
+                    <label class="block text-slate-500 font-bold mb-1">M. Complejidad de Cómputo</label>
+                    <input type="text" id="add-complexity" placeholder="Ej: O(N log N)" class="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                </div>
+                <div>
+                    <label class="block text-slate-500 font-bold mb-1">N. Impacto Social</label>
+                    <input type="text" id="add-impact" placeholder="Ej: Optimización industrial" class="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                </div>
+                <div class="sm:col-span-2">
+                    <label class="block text-slate-500 font-bold mb-1">O. Notas de Refactorización</label>
+                    <input type="text" id="add-notes" placeholder="Ej: Reducir tamaño de capas si se usa para móviles" class="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                </div>
+            </form>
+
+            <!-- Footer Formulario -->
+            <div class="p-4 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50 flex justify-end gap-2">
+                <button type="button" onclick="closeAddModal()" class="px-4 py-2 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-xl text-xs font-semibold hover:bg-slate-300 dark:hover:bg-slate-700 transition-all">Cancelar</button>
+                <button type="button" onclick="submitNewConcept()" class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-xs font-semibold transition-all">Guardar Concepto</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- JAVASCRIPT DE CONTROL PRINCIPAL -->
+    <script>
+        // BASE DE DATOS INICIAL CON LOS CONCEPTOS ACTUALIZADOS SEGÚN SOLICITUD
+        let glossaryData = [
+            {
+                a_id: "TERM001",
+                b_term: "Agente (IA)",
+                c_category: "Fundamentos IA",
+                d_definition: "Alguien o algo que toma acción para cumplir una meta. Entidad que percibe su entorno y actúa de forma autónoma para lograr objetivos específicos.",
+                e_usecase: "Un asistente virtual que revisa tu correo y agenda reuniones automáticamente.",
+                f_difficulty: "Básico",
+                g_algo: "Árboles de Decisión, Reinforcement Learning",
+                h_launch: "N/A",
+                i_author: "Teoría de la Computación",
+                j_status: "Aprobado",
+                k_ref: "https://es.wikipedia.org/wiki/Agente_inteligente_(inteligencia_artificial)",
+                l_tags: "Agente, Autonomía, Toma de Decisiones",
+                m_complexity: "O(1) a O(N^2) dependiente del entorno",
+                n_impact: "Automatización de tareas repetitivas y operativas.",
+                o_notes: "Refactorizar lógica de percepción para reducir latencia en la toma de decisiones."
+            },
+            {
+                a_id: "TERM002",
+                b_term: "Multiagente",
+                c_category: "Sistemas Complejos",
+                d_definition: "Un equipo de varios agentes trabajando juntos por una meta. Sistema de múltiples agentes autónomos interactuando y colaborando coordinadamente.",
+                e_usecase: "Simulación de tráfico urbano donde cada vehículo es un agente autónomo.",
+                f_difficulty: "Intermedio",
+                g_algo: "Algoritmos Distribuidos, Teoría de Juegos",
+                h_launch: "N/A",
+                i_author: "Investigación IA",
+                j_status: "Aprobado",
+                k_ref: "#",
+                l_tags: "Multiagente, Colaboración, Enjambre",
+                m_complexity: "O(A^2) donde A es el número de agentes",
+                n_impact: "Resolución de problemas descentralizados masivos.",
+                o_notes: "Implementar comunicación asíncrona (Pub/Sub) para evitar cuellos de botella entre agentes."
+            },
+            {
+                a_id: "TERM003",
+                b_term: "Uso de un Multiagente",
+                c_category: "Arquitectura IA",
+                d_definition: "Sirve para resolver problemas muy complejos uniendo varias inteligencias artificiales, distribuyendo y dividiendo tareas entre especialistas.",
+                e_usecase: "Gestión de cadenas de suministro globales optimizando rutas y tiempos simultáneamente.",
+                f_difficulty: "Avanzado",
+                g_algo: "Orquestación Descentralizada",
+                h_launch: "N/A",
+                i_author: "Comunidad",
+                j_status: "Aprobado",
+                k_ref: "#",
+                l_tags: "Orquestación, Distribución, Especialización",
+                m_complexity: "O(N log N)",
+                n_impact: "Optimiza procesos distribuidos mediante cooperación y especialización.",
+                o_notes: "Asegurar un protocolo estandarizado de intercambio de mensajes (JSON/Protobuf)."
+            },
+            {
+                a_id: "TERM004",
+                b_term: "Droid",
+                c_category: "Robótica y Frameworks",
+                d_definition: "Un robot físico e inteligente que actúa como un agente, o un framework especializado para crear agentes autónomos orientados a ejecutar tareas.",
+                e_usecase: "Un autómata en una fábrica o un agente de software que administra un servidor.",
+                f_difficulty: "Intermedio",
+                g_algo: "Control PID / NLP a Acción",
+                h_launch: "N/A",
+                i_author: "Industria Tech",
+                j_status: "Aprobado",
+                k_ref: "#",
+                l_tags: "Hardware, Software, Tareas, Autómata",
+                m_complexity: "Variable",
+                n_impact: "Lleva la IA del plano digital a la manipulación del entorno físico o sistemas de bajo nivel.",
+                o_notes: "Actualizar drivers de actuadores o empaquetar en contenedores seguros."
+            },
+            {
+                a_id: "TERM005",
+                b_term: "Fake Bot",
+                c_category: "Ciberseguridad",
+                d_definition: "Un agente falso o programa automatizado que simula ser una persona real con fines de engaño, manipulación o automatización oculta.",
+                e_usecase: "Cuentas falsas en redes sociales inflando métricas o propagando desinformación.",
+                f_difficulty: "Básico",
+                g_algo: "Generación de texto / Scraping",
+                h_launch: "N/A",
+                i_author: "Actores maliciosos/Auditores",
+                j_status: "Bajo Revisión",
+                k_ref: "#",
+                l_tags: "Bot, Engaño, Ciberseguridad, Simulación",
+                m_complexity: "O(1)",
+                n_impact: "Riesgo reputacional y propagación de datos erróneos.",
+                o_notes: "Refactorizar aplicando medidas antibot (CAPTCHA, análisis de comportamiento) en sistemas destino."
+            },
+            {
+                a_id: "TERM006",
+                b_term: "Repositorio",
+                c_category: "DevOps",
+                d_definition: "Lugar centralizado para guardar, organiza, versiona y facilita la colaboración en los archivos o código de un equipo. Registra cada cambio realizado.",
+                e_usecase: "Almacenar el código fuente de una aplicación permitiendo a 10 desarrolladores trabajar al mismo tiempo.",
+                f_difficulty: "Básico",
+                g_algo: "Árboles de Hash (Merkle Trees)",
+                h_launch: "2005 (Git)",
+                i_author: "Linus Torvalds",
+                j_status: "Aprobado",
+                k_ref: "https://git-scm.com/",
+                l_tags: "Versionamiento, Código, Colaboración",
+                m_complexity: "O(1) para commits",
+                n_impact: "Evita la pérdida de datos y revoluciona el trabajo remoto colaborativo.",
+                o_notes: "Limpiar ramas antiguas (pruning) y estandarizar convenciones de commits."
+            },
+            {
+                a_id: "TERM007",
+                b_term: "GitHub",
+                c_category: "DevOps",
+                d_definition: "Plataforma web y en la nube para guardar, organizar, gestionar y crear código de software en equipo de forma colaborativa.",
+                e_usecase: "Mantener proyectos de código abierto donde miles de programadores proponen mejoras (Pull Requests).",
+                f_difficulty: "Básico",
+                g_algo: "Plataforma SaaS",
+                h_launch: "2008",
+                i_author: "Tom Preston-Werner, Chris Wanstrath",
+                j_status: "Aprobado",
+                k_ref: "https://github.com",
+                l_tags: "Nube, Git, Plataforma, Repositorio",
+                m_complexity: "N/A",
+                n_impact: "Democratización del software Open Source a nivel mundial.",
+                o_notes: "Migrar integraciones de webhooks anticuadas a GitHub Actions."
+            },
+            {
+                a_id: "TERM008",
+                b_term: "Funcionamiento de GitHub",
+                c_category: "DevOps",
+                d_definition: "Subes tu código, registras cada cambio (commits) y trabajas en equipo utilizando ramas sin sobrescribir el trabajo ajeno.",
+                e_usecase: "Resolver conflictos de código fusionando la rama 'desarrollo' a la rama 'producción'.",
+                f_difficulty: "Intermedio",
+                g_algo: "Merge / Rebase",
+                h_launch: "N/A",
+                i_author: "Comunidad",
+                j_status: "Aprobado",
+                k_ref: "#",
+                l_tags: "Ramas, Commits, Pull Requests",
+                m_complexity: "O(N log N) en resolución de conflictos",
+                n_impact: "Acelera los ciclos de entrega de software seguro (CI/CD).",
+                o_notes: "Automatizar flujos de validación antes de permitir un merge (Linting, Tests)."
+            },
+            {
+                a_id: "TERM009",
+                b_term: "Claude vs Droid",
+                c_category: "Comparativa IA",
+                d_definition: "Claude es una IA conversacional de software/razonamiento. Droid es un agente/robot físico o digital diseñado para ejecutar tareas automáticamente.",
+                e_usecase: "Claude redacta el código para una web; Droid lo toma, abre el servidor y lo despliega automáticamente en la terminal.",
+                f_difficulty: "Básico",
+                g_algo: "LLM vs RPA/Autómata",
+                h_launch: "N/A",
+                i_author: "Anthropic / General",
+                j_status: "Aprobado",
+                k_ref: "#",
+                l_tags: "Diferencia, Claude, Droid, Ejecución",
+                m_complexity: "Variada",
+                n_impact: "Clarifica la diferencia entre pensar/razonar y ejecutar en el mundo real.",
+                o_notes: "Interconectar a Claude vía API con el sistema Droid usando llamadas a funciones (Function Calling)."
+            },
+            {
+                a_id: "TERM010",
+                b_term: "Open Cloud",
+                c_category: "Cloud Computing",
+                d_definition: "Plataforma o infraestructura de computación en la nube basada en tecnologías de código abierto que evita el bloqueo (vendor lock-in) de grandes proveedores.",
+                e_usecase: "Migrar bases de datos entre proveedores sin reescribir código, usando Kubernetes y estándares abiertos.",
+                f_difficulty: "Intermedio",
+                g_algo: "Contenedores, Virtualización libre",
+                h_launch: "N/A",
+                i_author: "Comunidad Open Source",
+                j_status: "Aprobado",
+                k_ref: "#",
+                l_tags: "Nube, Abierta, Interoperabilidad",
+                m_complexity: "N/A",
+                n_impact: "Garantiza flexibilidad, portabilidad y reducción de costos a largo plazo.",
+                o_notes: "Refactorizar arquitecturas serverless propietarias a estándares de contenedores universales."
+            },
+            {
+                a_id: "TERM011",
+                b_term: "Sesión de Uso (Ollama)",
+                c_category: "LLMs Locales",
+                d_definition: "Es tu conversación activa donde el modelo procesa tus peticiones y mantiene el contexto guardado en la memoria temporal de tu equipo.",
+                e_usecase: "Conversar sobre un bloque de código y que el modelo recuerde la función declarada tres preguntas atrás.",
+                f_difficulty: "Básico",
+                g_algo: "Gestión de Contexto / RAM",
+                h_launch: "2023",
+                i_author: "Ollama Team",
+                j_status: "Aprobado",
+                k_ref: "https://ollama.com",
+                l_tags: "Sesión, Memoria, Local, Contexto",
+                m_complexity: "O(T) donde T es el límite de tokens",
+                n_impact: "Permite usar IA generativa 100% privada sin depender de internet ni perder el hilo conductual.",
+                o_notes: "Purgar el historial de sesión (contextual compression) cuando se alcance el límite de memoria."
+            },
+            {
+                a_id: "TERM012",
+                b_term: "Sistema Predictivo de Agentes",
+                c_category: "IA Predictiva",
+                d_definition: "Arquitectura donde los agentes analizan datos y patrones históricos para anticipar decisiones, eventos o comportamientos futuros proactivamente.",
+                e_usecase: "Agente de mantenimiento que pide un repuesto de máquina semanas antes de que esta se rompa, analizando vibraciones pasadas.",
+                f_difficulty: "Avanzado",
+                g_algo: "Series Temporales, Modelos Predictivos",
+                h_launch: "N/A",
+                i_author: "Data Science",
+                j_status: "Aprobado",
+                k_ref: "#",
+                l_tags: "Predictivo, Anticipación, Datos",
+                m_complexity: "O(N * P) Predictivo",
+                n_impact: "Reduce drásticamente riesgos, costos operativos y tiempos de inactividad al prever fallas.",
+                o_notes: "Ajustar la ventana de tiempo histórico del modelo para no generar falsos positivos."
+            },
+            {
+                a_id: "TERM013",
+                b_term: "Capacitaciones con Agentes",
+                c_category: "EdTech & IA",
+                d_definition: "Sirve para enseñar, practicar y evaluar habilidades de forma personalizada, simulando escenarios con retroalimentación automática y escalable.",
+                e_usecase: "Un agente que simula ser un cliente para entrenar a los operadores de ventas sin riesgo de perder clientes reales.",
+                f_difficulty: "Intermedio",
+                g_algo: "Roleplay Simulado",
+                h_launch: "N/A",
+                i_author: "Recursos Humanos Tech",
+                j_status: "Aprobado",
+                k_ref: "#",
+                l_tags: "Entrenamiento, Educación, Simulación",
+                m_complexity: "N/A",
+                n_impact: "Escala la formación corporativa reduciendo los tiempos de aprendizaje y estandarizando la calidad.",
+                o_notes: "Implementar análisis de sentimiento para que el agente cambie la dificultad según el progreso del usuario."
+            },
+            {
+                a_id: "TERM014",
+                b_term: "Skills",
+                c_category: "Desarrollo de Agentes",
+                d_definition: "Habilidades o capacidades técnicas específicas programadas que le permiten a un agente de IA ejecutar tareas concretas de forma eficiente.",
+                e_usecase: "Darle al agente el 'skill' de hacer búsquedas en internet o conectarse a una base de datos para extraer métricas.",
+                f_difficulty: "Básico",
+                g_algo: "Llamada a Funciones (Tool Use)",
+                h_launch: "N/A",
+                i_author: "Desarrolladores IA",
+                j_status: "Aprobado",
+                k_ref: "#",
+                l_tags: "Habilidad, Tools, Plugins, Ejecución",
+                m_complexity: "O(1) por skill ejecutado",
+                n_impact: "Expande infinitamente lo que un modelo de texto puede hacer más allá de solo conversar.",
+                o_notes: "Modularizar cada skill como un microservicio independiente para un mantenimiento rápido."
+            }
+        ];
+
+        let selectedConcept = null; // Almacena el concepto que se está visualizando
+        let currentAgentMode = 'explain'; // explain | code | simplify
+
+        // ELEMENTOS DOM
+        const glossaryTbody = document.getElementById('glossary-tbody');
+        const cardsView = document.getElementById('cards-view');
+        const tableView = document.getElementById('table-view');
+        const searchInput = document.getElementById('search-input');
+        const categoryFilter = document.getElementById('category-filter');
+        const difficultyFilter = document.getElementById('difficulty-filter');
+        const resultsCounter = document.getElementById('results-counter');
+        const toggleColsBtn = document.getElementById('toggle-cols-btn');
+        const emptyState = document.getElementById('empty-state');
+
+        // BOTONES DE VISTA
+        const viewTableBtn = document.getElementById('view-table-btn');
+        const viewCardsBtn = document.getElementById('view-cards-btn');
+
+        // SISTEMA DE MODO OSCURO AUTOMÁTICO Y MANUAL
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeToggleIcon = document.getElementById('theme-toggle-icon');
+
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            themeToggleIcon.className = "fa-solid fa-sun text-lg text-amber-400";
+        } else {
+            document.documentElement.classList.remove('dark');
+            themeToggleIcon.className = "fa-solid fa-moon text-lg text-slate-600";
+        }
+
+        themeToggle.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                themeToggleIcon.className = "fa-solid fa-moon text-lg text-slate-600";
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                themeToggleIcon.className = "fa-solid fa-sun text-lg text-amber-400";
+            }
+        });
+
+        // INICIALIZACIÓN DE LA APLICACIÓN
+        function initApp() {
+            renderGlossary();
+            populateCategories();
+            setupEventListeners();
+        }
+
+        // ALTERNAR VISIBILIDAD DE COLUMNAS EXTRAS (A-O)
+        let showExtraColumns = false;
+        toggleColsBtn.addEventListener('click', () => {
+            showExtraColumns = !showExtraColumns;
+            const extraCells = document.querySelectorAll('.col-extra');
+            extraCells.forEach(cell => {
+                if (showExtraColumns) {
+                    cell.classList.remove('hidden');
+                } else {
+                    cell.classList.add('hidden');
+                }
+            });
+            toggleColsBtn.innerHTML = showExtraColumns 
+                ? `<i class="fa-solid fa-eye mr-1"></i> Ocultar Columnas A-O`
+                : `<i class="fa-solid fa-eye-slash mr-1"></i> Mostrar Columnas A-O`;
+        });
+
+        // POBLAR FILTRO DE CATEGORÍAS AUTOMÁTICAMENTE
+        function populateCategories() {
+            const categories = [...new Set(glossaryData.map(item => item.c_category))];
+            categoryFilter.innerHTML = '<option value="all">Todas las Categorías</option>';
+            categories.forEach(cat => {
+                const opt = document.createElement('option');
+                opt.value = cat;
+                opt.innerText = cat;
+                categoryFilter.appendChild(opt);
+            });
+        }
+
+        // RENDERIZAR GLOSARIO (TABLA & GRID TARJETAS)
+        function renderGlossary() {
+            const query = searchInput.value.toLowerCase().trim();
+            const catSelected = categoryFilter.value;
+            const diffSelected = difficultyFilter.value;
+
+            // Filtrar los datos
+            const filtered = glossaryData.filter(item => {
+                const matchesSearch = item.b_term.toLowerCase().includes(query) || 
+                                      item.d_definition.toLowerCase().includes(query) || 
+                                      item.c_category.toLowerCase().includes(query) ||
+                                      item.a_id.toLowerCase().includes(query);
+                const matchesCat = (catSelected === 'all' || item.c_category === catSelected);
+                const matchesDiff = (diffSelected === 'all' || item.f_difficulty === diffSelected);
+                return matchesSearch && matchesCat && matchesDiff;
+            });
+
+            // Actualizar contador
+            resultsCounter.innerText = `${filtered.length} conceptos listados de ${glossaryData.length}`;
+
+            // Manejar Estado Vacío
+            if (filtered.length === 0) {
+                emptyState.classList.remove('hidden');
+                emptyState.classList.add('flex');
+                tableView.classList.add('hidden');
+                cardsView.classList.add('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+                emptyState.classList.remove('flex');
+                if (tableView.classList.contains('hidden') && cardsView.classList.contains('hidden')) {
+                    // Restaurar vista por defecto
+                    tableView.classList.remove('hidden');
+                }
+            }
+
+            // Renderizar Tabla
+            glossaryTbody.innerHTML = '';
+            filtered.forEach(item => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors cursor-pointer group";
+                
+                // Formato de dificultad con estilo de insignia
+                let diffBadge = "";
+                if (item.f_difficulty === "Básico") {
+                    diffBadge = `<span class="px-2 py-0.5 rounded text-xs font-bold bg-green-100 text-green-700 dark:bg-green-950/40 dark:text-green-400">Básico</span>`;
+                } else if (item.f_difficulty === "Intermedio") {
+                    diffBadge = `<span class="px-2 py-0.5 rounded text-xs font-bold bg-amber-100 text-amber-700 dark:bg-amber-950/40 dark:text-amber-400">Intermedio</span>`;
+                } else {
+                    diffBadge = `<span class="px-2 py-0.5 rounded text-xs font-bold bg-rose-100 text-rose-700 dark:bg-rose-950/40 dark:text-rose-400">Avanzado</span>`;
+                }
+
+                tr.innerHTML = `
+                    <td class="py-3 px-4 font-mono font-bold text-slate-500 text-xs">${item.a_id}</td>
+                    <td class="py-3 px-4 font-extrabold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">${item.b_term}</td>
+                    <td class="py-3 px-4 font-semibold text-xs text-slate-500 dark:text-slate-400">${item.c_category}</td>
+                    <td class="py-3 px-4 text-xs max-w-xs truncate" title="${item.d_definition}">${item.d_definition}</td>
+                    
+                    <td class="py-3 px-4 text-xs max-w-xs truncate col-extra hidden" title="${item.e_usecase}">${item.e_usecase}</td>
+                    <td class="py-3 px-4 col-extra hidden">${diffBadge}</td>
+                    <td class="py-3 px-4 text-xs col-extra hidden">${item.g_algo}</td>
+                    <td class="py-3 px-4 text-xs col-extra hidden">${item.h_launch}</td>
+                    <td class="py-3 px-4 text-xs col-extra hidden">${item.i_author}</td>
+                    <td class="py-3 px-4 text-xs col-extra hidden">
+                        <span class="px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-950/30 text-blue-700 dark:text-blue-400 text-[10px] font-bold">${item.j_status}</span>
+                    </td>
+                    <td class="py-3 px-4 text-xs col-extra hidden"><a href="${item.k_ref}" target="_blank" class="text-brand-600 dark:text-brand-400 hover:underline">Link</a></td>
+                    <td class="py-3 px-4 text-xs col-extra hidden">${item.l_tags}</td>
+                    <td class="py-3 px-4 font-mono text-xs col-extra hidden">${item.m_complexity}</td>
+                    <td class="py-3 px-4 text-xs col-extra hidden">${item.n_impact}</td>
+                    <td class="py-3 px-4 text-xs col-extra hidden font-style:italic">${item.o_notes}</td>
+                    
+                    <td class="py-3 px-4 text-center">
+                        <button onclick="viewConceptDetails('${item.a_id}'); event.stopPropagation();" class="text-brand-600 dark:text-brand-400 hover:scale-110 p-1.5 transition-transform" title="Ver detalle completo">
+                            <i class="fa-solid fa-expand text-base"></i>
+                        </button>
+                    </td>
+                `;
+                
+                // Al hacer clic en la fila abre detalles
+                tr.onclick = () => viewConceptDetails(item.a_id);
+                glossaryTbody.appendChild(tr);
+            });
+
+            // Forzar ocultar/mostrar según estado
+            const extraCells = document.querySelectorAll('.col-extra');
+            extraCells.forEach(cell => {
+                if (showExtraColumns) {
+                    cell.classList.remove('hidden');
+                } else {
+                    cell.classList.add('hidden');
+                }
+            });
+
+            // Renderizar Tarjetas (Cards View)
+            cardsView.innerHTML = '';
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bg-slate-50 dark:bg-slate-950 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-500 dark:hover:border-brand-600 transition-all cursor-pointer hover:shadow-lg flex flex-col justify-between";
+                card.onclick = () => viewConceptDetails(item.a_id);
+
+                let diffBadge = "";
+                if (item.f_difficulty === "Básico") {
+                    diffBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-green-100 text-green-700 dark:bg-green-950/40 dark:text-green-400">Básico</span>`;
+                } else if (item.f_difficulty === "Intermedio") {
+                    diffBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-700 dark:bg-amber-950/40 dark:text-amber-400">Intermedio</span>`;
+                } else {
+                    diffBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-100 text-rose-700 dark:bg-rose-950/40 dark:text-rose-400">Avanzado</span>`;
+                }
+
+                card.innerHTML = `
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-start">
+                            <span class="font-mono text-[10px] font-bold text-slate-400">${item.a_id}</span>
+                            ${diffBadge}
+                        </div>
+                        <h4 class="font-black text-slate-900 dark:text-white leading-snug group-hover:text-brand-500">${item.b_term}</h4>
+                        <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-50 dark:bg-indigo-950/30 text-brand-600 dark:text-brand-400">${item.c_category}</span>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed pt-1 line-clamp-3">${item.d_definition}</p>
+                    </div>
+                    <div class="pt-4 mt-3 border-t border-slate-200 dark:border-slate-800/80 flex justify-between items-center text-[10px] text-slate-400">
+                        <span>Autor: ${item.i_author || 'Anónimo'}</span>
+                        <span class="font-mono">${item.m_complexity || 'O(1)'}</span>
+                    </div>
+                `;
+                cardsView.appendChild(card);
+            });
+        }
+
+        // ESCUCHADORES DE EVENTOS
+        function setupEventListeners() {
+            searchInput.addEventListener('input', renderGlossary);
+            categoryFilter.addEventListener('change', renderGlossary);
+            difficultyFilter.addEventListener('change', renderGlossary);
+
+            // Cambiar Vistas
+            viewTableBtn.addEventListener('click', () => {
+                viewTableBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-white dark:bg-slate-900 text-brand-600 dark:text-brand-400 shadow-sm";
+                viewCardsBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200";
+                tableView.classList.remove('hidden');
+                cardsView.classList.add('hidden');
+                renderGlossary();
+            });
+
+            viewCardsBtn.addEventListener('click', () => {
+                viewCardsBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-white dark:bg-slate-900 text-brand-600 dark:text-brand-400 shadow-sm";
+                viewTableBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200";
+                tableView.classList.add('hidden');
+                cardsView.classList.remove('hidden');
+                renderGlossary();
+            });
+        }
+
+        // MODAL DE DETALLES DEL CONCEPTO
+        function viewConceptDetails(id) {
+            const concept = glossaryData.find(item => item.a_id === id);
+            if (!concept) return;
+
+            selectedConcept = concept;
+
+            document.getElementById('modal-title').innerText = concept.b_term;
+            document.getElementById('modal-category').innerText = concept.c_category;
+            document.getElementById('modal-difficulty').innerText = concept.f_difficulty;
+            document.getElementById('modal-col-a').innerText = `Columna A: ID - ${concept.a_id}`;
+            document.getElementById('modal-definition').innerText = concept.d_definition;
+            document.getElementById('modal-usecase').innerText = concept.e_usecase || "No especificado";
+            document.getElementById('modal-algo').innerText = concept.g_algo || "N/A";
+            document.getElementById('modal-launch').innerText = concept.h_launch || "Desconocido";
+            document.getElementById('modal-author').innerText = concept.i_author || "Anónimo";
+            document.getElementById('modal-status').innerText = concept.j_status || "Pendiente";
+            
+            const refLink = document.getElementById('modal-ref');
+            if (concept.k_ref && concept.k_ref !== "#") {
+                refLink.href = concept.k_ref;
+                refLink.innerText = concept.k_ref;
+                refLink.classList.remove('pointer-events-none', 'text-slate-400');
+            } else {
+                refLink.href = "#";
+                refLink.innerText = "No disponible";
+                refLink.classList.add('pointer-events-none', 'text-slate-400');
+            }
+
+            document.getElementById('modal-tags').innerText = concept.l_tags || "---";
+            document.getElementById('modal-complexity').innerText = concept.m_complexity || "---";
+            document.getElementById('modal-impact').innerText = concept.n_impact || "---";
+            document.getElementById('modal-notes').innerText = concept.o_notes || "---";
+
+            // Mostrar Modal
+            const modal = document.getElementById('details-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeDetailsModal() {
+            const modal = document.getElementById('details-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // MODAL DE AGREGAR CONCEPTO (NUEVO)
+        function openAddModal() {
+            // Auto generar ID secuencial
+            const nextNum = glossaryData.length + 1;
+            document.getElementById('add-id').value = `TERM` + String(nextNum).padStart(3, '0');
+            
+            const modal = document.getElementById('add-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeAddModal() {
+            const modal = document.getElementById('add-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.getElementById('add-concept-form').reset();
+        }
+
+        function submitNewConcept() {
+            const idVal = document.getElementById('add-id').value.trim();
+            const termVal = document.getElementById('add-term').value.trim();
+            const catVal = document.getElementById('add-category').value.trim();
+            const diffVal = document.getElementById('add-difficulty').value;
+            const defVal = document.getElementById('add-definition').value.trim();
+            const ucVal = document.getElementById('add-usecase').value.trim();
+            const algoVal = document.getElementById('add-algo').value.trim() || 'N/A';
+            const launchVal = document.getElementById('add-launch').value.trim() || '2026';
+            const authVal = document.getElementById('add-author').value.trim() || 'Nicolás Téllez';
+            const statusVal = document.getElementById('add-status').value.trim() || 'Aprobado';
+            const refVal = document.getElementById('add-ref').value.trim() || '';
+            const tagsVal = document.getElementById('add-tags').value.trim() || '';
+            const complexityVal = document.getElementById('add-complexity').value.trim() || 'O(1)';
+            const impactVal = document.getElementById('add-impact').value.trim() || 'General';
+            const notesVal = document.getElementById('add-notes').value.trim() || 'Listo';
+
+            if (!idVal || !termVal || !catVal || !defVal || !ucVal) {
+                alertModal("Por favor rellene todos los campos obligatorios para guardar de la Columna A a la O.");
+                return;
+            }
+
+            // Añadir nuevo concepto al glosario
+            const newConcept = {
+                a_id: idVal,
+                b_term: termVal,
+                c_category: catVal,
+                d_definition: defVal,
+                e_usecase: ucVal,
+                f_difficulty: diffVal,
+                g_algo: algoVal,
+                h_launch: launchVal,
+                i_author: authVal,
+                j_status: statusVal,
+                k_ref: refVal,
+                l_tags: tagsVal,
+                m_complexity: complexityVal,
+                n_impact: impactVal,
+                o_notes: notesVal
+            };
+
+            glossaryData.push(newConcept);
+            renderGlossary();
+            populateCategories();
+            closeAddModal();
+
+            // Saludo del Agente anunciando que se agregó
+            addAgentMessage("Socrates AI", `¡Excelente! He analizado y agregado el concepto **${termVal}** (${idVal}) en tu planilla de datos de la columna A a la O. ¿Deseas que te genere una refactorización de su código o una prueba de autoevaluación?`, false);
+        }
+
+
+        // AGENTE VIRTUAL DE REFACTORIZACIÓN (LOGICA CHATBOT)
+        const agentForm = document.getElementById('agent-form');
+        const agentInput = document.getElementById('agent-input');
+        const agentMessages = document.getElementById('agent-messages');
+        const typingIndicator = document.getElementById('typing-indicator');
+
+        function changeAgentMode(mode) {
+            currentAgentMode = mode;
+            // Estilos visuales
+            const modes = ['explain', 'code', 'simplify'];
+            modes.forEach(m => {
+                const btn = document.getElementById(`agent-mode-${m}`);
+                if (m === mode) {
+                    btn.className = "px-2 py-1 rounded bg-brand-600 text-white text-[10px] font-semibold";
+                } else {
+                    btn.className = "px-2 py-1 rounded bg-slate-800 text-slate-300 text-[10px] font-semibold hover:bg-slate-700";
+                }
+            });
+
+            addAgentMessage("Socrates AI", `Modo del agente cambiado a **${mode.toUpperCase()}**. Escribe tu pregunta o solicita refactorizar un término.`, false);
+        }
+
+        // Agregar mensaje en el Chat del Agente
+        function addAgentMessage(sender, text, isUser = false) {
+            const wrapper = document.createElement('div');
+            wrapper.className = "flex gap-2.5 items-start animate-fade-in";
+            
+            let iconMarkup = "";
+            let messageStyle = "";
+
+            if (isUser) {
+                wrapper.classList.add('justify-end');
+                iconMarkup = `
+                    <div class="w-7 h-7 rounded-lg bg-indigo-500/20 text-indigo-300 flex items-center justify-center shrink-0 order-2">
+                        <i class="fa-solid fa-user-tag text-xs"></i>
+                    </div>
+                `;
+                messageStyle = "bg-brand-600 p-3 rounded-2xl rounded-tr-none text-white max-w-[85%] font-medium";
+            } else {
+                iconMarkup = `
+                    <div class="w-7 h-7 rounded-lg bg-brand-600 flex items-center justify-center text-white shrink-0 text-xs">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                `;
+                messageStyle = "bg-slate-800/80 p-3 rounded-2xl rounded-tl-none border border-slate-800/60 max-w-[85%] text-slate-200";
+            }
+
+            wrapper.innerHTML = `
+                ${iconMarkup}
+                <div class="${messageStyle} order-1">
+                    <p class="font-bold text-[10px] mb-1 text-slate-400 ${isUser ? 'text-indigo-100' : 'text-brand-400'}">${sender}:</p>
+                    <div class="space-y-1.5 leading-relaxed">${formatMarkdownText(text)}</div>
+                </div>
+            `;
+
+            agentMessages.appendChild(wrapper);
+            agentMessages.scrollTop = agentMessages.scrollHeight;
+        }
+
+        // Formateador simple de markdown integrado (Negrita, Bloque de Código)
+        function formatMarkdownText(text) {
+            // Formatear bloques de código ```python ... ```
+            let formatted = text.replace(/```python([\s\S]*?)```/g, '<pre class="bg-slate-950 p-2.5 rounded-xl border border-slate-850 text-emerald-400 font-mono text-[10px] overflow-x-auto my-2">$1</pre>');
+            formatted = formatted.replace(/```([\s\S]*?)```/g, '<pre class="bg-slate-950 p-2.5 rounded-xl border border-slate-850 text-slate-300 font-mono text-[10px] overflow-x-auto my-2">$1</pre>');
+            // Negritas
+            formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong class="font-extrabold text-white">$1</strong>');
+            // Saltos de línea
+            formatted = formatted.replace(/\n/g, '<br>');
+            return formatted;
+        }
+
+        // Limpiar el historial del agente
+        function clearChat() {
+            agentMessages.innerHTML = "";
+            addAgentMessage("Socrates AI", "Historial de conversación reseteado. ¿Qué concepto de Inteligencia Artificial te gustaría refactorizar hoy?", false);
+        }
+
+        // Activar el agente para refactorizar desde el Modal
+        function askAgentToRefactorCurrent() {
+            if (!selectedConcept) return;
+            closeDetailsModal();
+            
+            typingIndicator.classList.remove('hidden');
+            
+            setTimeout(() => {
+                typingIndicator.classList.add('hidden');
+                
+                let responseText = "";
+                if (currentAgentMode === 'explain') {
+                    responseText = `He recibido tu solicitud para explicar detalladamente el concepto **${selectedConcept.b_term}** (ID: ${selectedConcept.a_id}):\n\n` +
+                                   `• **Categoría:** ${selectedConcept.c_category}\n` +
+                                   `• **Dificultad:** ${selectedConcept.f_difficulty}\n` +
+                                   `• **Explicación Intuitiva:** El concepto de ${selectedConcept.b_term} funciona de forma estructurada para cumplir sus objetivos específicos. Su complejidad principal es de **${selectedConcept.m_complexity}**.\n\n` +
+                                   `**Notas de optimización:** ${selectedConcept.o_notes}`;
+                } else if (currentAgentMode === 'code') {
+                    responseText = `Claro, aquí tienes una refactorización representativa en **Python** para simular la lógica del concepto **${selectedConcept.b_term}**:\n\n` +
+                                   `\`\`\`python\n` +
+                                   `# Tarea IA - Refactorización de código\n` +
+                                   `# Concepto: ${selectedConcept.b_term}\n` +
+                                   `# Algoritmo Base: ${selectedConcept.g_algo || "Algoritmo Estándar"}\n\n` +
+                                   `def refactor_agent_process(data, target="Ejecución"):\n` +
+                                   `    print("-> Iniciando procesamiento de ${selectedConcept.b_term}")\n` +
+                                   `    # Simulación de Complejidad: ${selectedConcept.m_complexity}\n` +
+                                   `    resultado = f"La data {data} ha sido procesada con éxito."\n` +
+                                   `    return resultado\n\n` +
+                                   `output = refactor_agent_process("Muestra de datos")\n` +
+                                   `print(output)\n` +
+                                   `\`\`\``;
+                } else {
+                    // Simplificar
+                    responseText = `**Simplificando al máximo el concepto de ${selectedConcept.b_term} (Explicación para Niños):**\n\n` +
+                                   `Imagínate que esto es como enseñarle a un asistente muy aplicado a hacer una tarea específica paso por paso. Le damos instrucciones claras y él, de forma automática, hace el trabajo por nosotros para ayudarnos y ser mucho más rápidos. ¡Es así de sencillo!`;
+                }
+
+                addAgentMessage("Socrates AI", responseText, false);
+            }, 800);
+        }
+
+        // Enviar input del Chatbox
+        agentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const text = agentInput.value.trim();
+            if (!text) return;
+
+            addAgentMessage("Usuario / Alumno", text, true);
+            agentInput.value = "";
+            typingIndicator.classList.remove('hidden');
+
+            setTimeout(() => {
+                typingIndicator.classList.add('hidden');
+                
+                // Respuesta dinámica simulando procesamiento inteligente (NLU básica)
+                const query = text.toLowerCase();
+                let reply = "";
+
+                if (query.includes('hola') || query.includes('saludos')) {
+                    reply = "¡Hola! ¿Qué concepto deseas refactorizar hoy? Puedes seleccionar conceptos como **Agente**, **GitHub**, **Multiagente** o agregar uno nuevo.";
+                } else if (query.includes('linkedin') || query.includes('datos')) {
+                    reply = "El autor de este proyecto es **Nicolás Téllez**. Su perfil de LinkedIn profesional está configurado en el enlace principal del navegador: https://www.linkedin.com/in/nicolastellez. ¡Te sugiero conectarte con él!";
+                } else if (query.includes('refactor') || query.includes('código') || query.includes('python')) {
+                    reply = "Puedes solicitar código Python funcional de cualquier concepto. Haz clic en la fila del glosario que deseas, cambia el modo de Socrates a **Código** en el panel superior y selecciona 'Mandar al Agente'.";
+                } else if (query.includes('desplegar') || query.includes('subir') || query.includes('html')) {
+                    reply = "Para desplegar este proyecto gratis, puedes revisar el bloque de texto interactivo **Paso a Paso** abajo en esta página. Te recomiendo usar **Netlify Drop** ya que se despliega con solo arrastrar este archivo.";
+                } else {
+                    // Generación de respuesta heurística en base a los términos disponibles
+                    const matched = glossaryData.find(item => query.includes(item.b_term.toLowerCase()) || query.includes(item.c_category.toLowerCase()));
+                    if (matched) {
+                        reply = `He detectado tu interés en **${matched.b_term}** (Categoría: ${matched.c_category}).\n\n` +
+                                `• **Definición de Planilla:** ${matched.d_definition}\n` +
+                                `• **Caso de Uso:** ${matched.e_usecase}\n` +
+                                `• **Complejidad:** ${matched.m_complexity}\n\n` +
+                                `¿Quieres que refactorice este concepto a un fragmento de código Python ejecutable?`;
+                    } else {
+                        reply = `Interesante pregunta sobre Inteligencia Artificial. Como tu **Agente de Refactorización**, sugiero analizar cómo se conecta eso con la arquitectura de **Multiagentes** o con sistemas integrados vía **GitHub**.\n\n` +
+                                `¿Deseas que profundice en el código de alguna de estas tecnologías?`;
+                    }
+                }
+
+                addAgentMessage("Socrates AI", reply, false);
+            }, 1000);
+        });
+
+        // Alerta personalizada para no usar alerts nativos en iframe
+        function alertModal(msg) {
+            addAgentMessage("Socrates AI", `⚠️ **Atención:** ${msg}`, false);
+        }
+
+        // Arrancar la app cuando cargue la página
+        window.onload = function() {
+            initApp();
+        }
+    </script>
+</body>
+</html>
